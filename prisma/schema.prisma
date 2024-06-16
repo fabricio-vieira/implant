@@ -13,9 +13,80 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// model Project {
-//   id   String @id @default(uuid())
-//   name String
+model Project {
+  id   String @id @default(uuid())
+  name String
+  slug String @unique
 
-//   @@map("projects")
+  gestor_validate Boolean @default(false)
+  aproved         Boolean @default(false)
+  has_monit       Boolean
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+  Plan    Plan?   @relation(fields: [plan_id], references: [id])
+  plan_id String?
+
+  @@map("projects")
+}
+
+model Plan {
+  id           String @id @default(uuid())
+  title        String
+  license_cost Float
+
+  Project    Project[]
+  created_at DateTime  @default(now())
+
+  @@map("plans")
+}
+
+// model Door {
+//   id   String @id @default(uuid())
+//   title String
+//   slug String 
+//   range Int
+//   exit_control Boolean
+//   inside Boolean
+
+//   @@map("doors")
+// }
+
+// model Gate {
+//   id   String @id @default(uuid())
+//   title String
+//   range Int
+
+//   @@map("gates")
+// }
+
+// model Dump {
+//   id   String @id @default(uuid())
+//   title String
+//   range Int
+
+//   @@map("dumps")
+// }
+
+// model Box {
+//   id   String @id @default(uuid())
+//   title String
+//   range Int
+
+//   @@map("boxes")
+// }
+// model Elevator {
+//   id   String @id @default(uuid())
+//   title String
+//   range Int
+
+//   @@map("elevators")
+// }
+// model Range {
+//   id   String @id @default(uuid())
+//   description String
+//   total Int
+
+//   @@map("ranges")
 // }

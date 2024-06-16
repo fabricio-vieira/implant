@@ -1,11 +1,31 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
-import { ProjectController } from './project/project.controller'
-import { ProjectService } from './project/project.service'
+import { DatabaseModule } from 'src/database/database.module'
+import { GraphQLModule } from '@nestjs/graphql'
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
+import { ProjectResolver } from './graphql/resolvers/project.resolver'
+import { ProjectService } from './graphql/project/project.service'
+import { join } from 'path'
+import { PlanResolver } from './graphql/resolvers/plan.resolver'
+import { PlanService } from './graphql/project/plan.service'
 
 @Module({
-    imports: [ConfigModule.forRoot()],
-    controllers: [ProjectController],
-    providers: [ProjectService]
+    imports: [
+        ConfigModule.forRoot(),
+        DatabaseModule,
+        GraphQLModule.forRoot<ApolloDriverConfig>({
+            driver: ApolloDriver,
+            autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+        }),
+    ],
+    providers: [
+        // Resolvers
+        ProjectResolver,
+        PlanResolver,
+
+        //Services
+        ProjectService,
+        PlanService
+    ]
 })
 export class HttpModule { }

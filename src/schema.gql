@@ -1,0 +1,47 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Plan {
+  id: ID!
+  title: String!
+  license_cost: Float!
+}
+
+type Project {
+  id: ID!
+  name: String!
+  slug: String!
+  plan_id: String!
+  gestor_validate: Boolean!
+  aproved: Boolean!
+  has_monit: Boolean!
+  created_at: DateTime!
+  plan: Plan
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Query {
+  projects: [Project!]!
+  plans: [Plan!]!
+}
+
+type Mutation {
+  create_project(data: CreateProjectInput!): Project!
+  create_plan(data: CreatePlanInput!): Plan!
+}
+
+input CreateProjectInput {
+  name: String!
+  plan_id: String!
+  has_monit: Boolean!
+}
+
+input CreatePlanInput {
+  title: String!
+  license_cost: Float!
+}

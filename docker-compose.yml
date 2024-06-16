@@ -2,14 +2,14 @@ version: '3.8'
 
 services:
   postgres:
-    container_name: nome_container
+    container_name: implant_container
     image: postgres
     ports:
       - 5432:5432
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: senha_forte
-      POSTGRES_DB: nome_db
+      POSTGRES_PASSWORD: ra1205
+      POSTGRES_DB: implant_db
       PGDATA: /data/postgres
     volumes:
       - /data/pg:/data/postgres
