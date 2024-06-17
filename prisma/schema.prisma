@@ -28,6 +28,8 @@ model Project {
   Plan    Plan?   @relation(fields: [plan_id], references: [id])
   plan_id String?
 
+  Door Door[]
+
   @@map("projects")
 }
 
@@ -42,16 +44,19 @@ model Plan {
   @@map("plans")
 }
 
-// model Door {
-//   id   String @id @default(uuid())
-//   title String
-//   slug String 
-//   range Int
-//   exit_control Boolean
-//   inside Boolean
+model Door {
+  id           String  @id @default(uuid())
+  title        String
+  slug         String
+  range        Int
+  exit_control Boolean
+  inside       Boolean
 
-//   @@map("doors")
-// }
+  Project    Project @relation(fields: [project_id], references: [id])
+  project_id String
+
+  @@map("doors")
+}
 
 // model Gate {
 //   id   String @id @default(uuid())

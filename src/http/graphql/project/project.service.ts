@@ -25,6 +25,14 @@ export class ProjectService {
         })
     }
 
+    getDoors(project_id: string) {
+        return this.prismaService.door.findMany({
+            where: {
+                project_id,
+            }
+        })
+    }
+
     async create({ name, plan_id, has_monit }: CreateProjectParams) {
         const slug = slugify(name, {
             lower: true,

@@ -8,6 +8,8 @@ import { ProjectService } from './graphql/project/project.service'
 import { join } from 'path'
 import { PlanResolver } from './graphql/resolvers/plan.resolver'
 import { PlanService } from './graphql/project/plan.service'
+import { DoorService } from './graphql/project/door.service'
+import { DoorResolver } from './graphql/resolvers/door.resolver'
 
 @Module({
     imports: [
@@ -22,10 +24,13 @@ import { PlanService } from './graphql/project/plan.service'
         // Resolvers
         ProjectResolver,
         PlanResolver,
+        DoorResolver,
 
         //Services
         ProjectService,
-        PlanService
+        PlanService,
+        DoorService
+
     ]
 })
 export class HttpModule { }

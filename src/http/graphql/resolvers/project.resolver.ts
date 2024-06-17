@@ -3,6 +3,7 @@ import { ProjectService } from '../project/project.service';
 import { PlanService } from '../project/plan.service';
 import { Project } from '../models/project';
 import { Plan } from '../models/plan';
+import { Door } from '../models/door';
 import { CreateProjectInput } from '../inputs/create-project-input';
 
 @Resolver(() => Project)
@@ -26,6 +27,11 @@ export class ProjectResolver {
     @ResolveField(() => Plan, { nullable: true })
     plan(@Parent() project: Project) {
         return this.planService.getPlanById(project.plan_id)
+    }
+
+    @ResolveField(() => [Door], { nullable: true })
+    getDoors(@Parent() project: Project) {
+        return this.projectService.getDoors(project.id);
     }
 }
 

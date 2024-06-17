@@ -8,6 +8,17 @@ type Plan {
   license_cost: Float!
 }
 
+type Door {
+  id: ID!
+  project_id: String!
+  title: String!
+  slug: String!
+  range: Float!
+  exit_control: Boolean!
+  inside: Boolean!
+  door: Project!
+}
+
 type Project {
   id: ID!
   name: String!
@@ -18,6 +29,8 @@ type Project {
   has_monit: Boolean!
   created_at: DateTime!
   plan: Plan
+  doors: Door!
+  getDoors: [Door!]
 }
 
 """
@@ -28,11 +41,14 @@ scalar DateTime
 type Query {
   projects: [Project!]!
   plans: [Plan!]!
+  doors: [Door!]!
+  doorsByProjectId(project_id: String!): [Door!]!
 }
 
 type Mutation {
   create_project(data: CreateProjectInput!): Project!
   create_plan(data: CreatePlanInput!): Plan!
+  create_door(data: CreateDoorInput!): Door!
 }
 
 input CreateProjectInput {
@@ -44,4 +60,12 @@ input CreateProjectInput {
 input CreatePlanInput {
   title: String!
   license_cost: Float!
+}
+
+input CreateDoorInput {
+  title: String!
+  project_id: String!
+  range: Float!
+  inside: Boolean!
+  exit_control: Boolean!
 }

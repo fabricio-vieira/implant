@@ -1,5 +1,6 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { Plan } from './plan'
+import { Door } from './door'
 
 @ObjectType()
 export class Project {
@@ -29,5 +30,9 @@ export class Project {
 
     @Field(() => Plan, { nullable: true })
     plan: Plan
+
+    @Field(() => Door)
+    doors?: Door[];
+
 
 }
